@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Working...</title>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Clinostat Control</h1>
+    <button class="stopButton" onclick="location.href='/machine/off'" type="button" id='BTN_SEND_BACK'>Stop</button>
+    <br><br>
+    <h2 class="title">Defined Configuration</h2>
+    <p>Gravity <span id='gravityData'>-</span></p>
+    <h2 class="title">Data being received</h2>
+    <p>Status: <span id='buttonState'>-</span></p>
+    <p>Random Number: <span id='rand'>-</span></p>
+  </div>
+  <script src="/pages/sendWebSocketData.js"></script>
+</body>
+</html>
