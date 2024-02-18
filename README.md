@@ -1,5 +1,5 @@
 # Clinostat3D-Esp32
-This code was produced using PlatformIO and need to be used in a esp32 board
+This code was produced using PlatformIO and need to be used in a esp32 board.
 All the code produced in C++ is found in the src folder, while in the data folder you can find other content that was added through SPIFFS.h to create the web pages.
 
 
