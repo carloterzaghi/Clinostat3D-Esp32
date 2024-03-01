@@ -4,13 +4,16 @@
 #include <SPIFFS.h>
 #include <WebSocketsServer.h>
 
+#define RXp2 16
+#define TXp2 17
+
 String receivedData = "";
+String ReciveDataSerial = "";
 
 // Função para salvar os dados recebidos
 void saveReceivedData(const char* data, size_t length) {
     // Limpa os dados recebidos anteriores
     receivedData = "";
-
     // Concatena os novos dados recebidos
     for (size_t i = 0; i < length; i++) {
         receivedData += data[i];
@@ -38,7 +41,7 @@ void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length) {
 }
 
 // Rede e Senha do ESP32
-const char* ssid     = "ESP32-NewTest";  // Nome da Rede
+const char* ssid     = "ESP32-NSEE";  // Nome da Rede
 const char* password = "12345678";  // Senha Precisa ter no mínimo 8 caracteres
 
 // Init de intervalo de envio de dados do esp32 ao pagina web server
@@ -47,15 +50,13 @@ unsigned long previousMillis = 0;
 
 // Inputs e Outpouts do ESP32
 const int ledPin = 5;
-const int ledPin2 = 18;
-const int buttonPin = 4;
-int buttonState = 0;
 
 // Criação do Web Server na porta 80 e do envio de dados da placa na porta 81
 AsyncWebServer server(80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
 void setup() {
+  Serial2.begin(9600, SERIAL_8N1, RXp2, TXp2);
   Serial.begin(115200);
   while (!Serial);
 
@@ -74,11 +75,8 @@ void setup() {
   Serial.println("Configurando GPIO...");
 
   pinMode(ledPin, OUTPUT);
-  pinMode(ledPin2, OUTPUT);
-  pinMode(buttonPin, INPUT);
   
   digitalWrite(ledPin, LOW);
-  digitalWrite(ledPin2, LOW);
 
   Serial.println("GPIO configurado com sucesso!");
 
@@ -100,13 +98,13 @@ void setup() {
   });
 
   server.on("/machine/on", HTTP_GET, [](AsyncWebServerRequest *request) {
-    digitalWrite(ledPin2, HIGH);
+    Serial2.println("on,"+String(receivedData));
     request->send(SPIFFS, "/pages/machineOn.html", "text/html");
   });
 
   server.on("/machine/off", HTTP_GET, [](AsyncWebServerRequest *request) {
     digitalWrite(ledPin, HIGH);
-    digitalWrite(ledPin2, LOW);
+    Serial2.println("off");
     request->send(SPIFFS, "/pages/machineOff.html", "text/html");
   });
 
@@ -139,14 +137,19 @@ void setup() {
 }
 
 void loop() {
-  webSocket.loop();                                   // Update function for the webSockets 
 
-  buttonState = digitalRead(buttonPin);
+  if (Serial2.available()) {
+      ReciveDataSerial = Serial2.readString();  // Recive data from Arduino -> buttonState, RandomNumber
+  }
+
+  webSocket.loop();                                   // Update function for the webSockets 
+  
+  //  buttonState = digitalRead(buttonPin);
 
   unsigned long now = millis();                       // read out the current "time" ("millis()" gives the time in ms since the Arduino started)
   if ((unsigned long)(now - previousMillis) >= interval) { // check if "interval" ms has passed since last time the clients were updated
 
-    String str = String(buttonState)+","+String(random(100))+","+String(receivedData);                 // Send data to server -> buttonState, RandomNumber, Gravidade(Informada no Site)
+    String str = ReciveDataSerial+","+String(receivedData);          // Send data to server -> buttonState, RandomNumber, Gravidade (Informada no Site)
     int str_len = str.length() + 1;                   
     char char_array[str_len];
     str.toCharArray(char_array, str_len);             // convert to char array
