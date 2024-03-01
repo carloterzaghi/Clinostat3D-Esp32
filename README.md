@@ -13,3 +13,6 @@ All the code produced in C++ is found in the src folder, while in the data folde
 7. Connect with the connection that the esp32 is generating using the data you put in your code in ssid and password
 8. In your internet connect to "192.168.4.1"
 
+
+# How it should be assembled
+![Alt text](https://github.com/carloterzaghi/Clinostat3D-Esp32/blob/main/image.png)
