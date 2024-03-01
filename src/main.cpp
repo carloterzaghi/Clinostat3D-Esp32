@@ -47,7 +47,7 @@ unsigned long previousMillis = 0;
 
 // Inputs e Outpouts do ESP32
 const int ledPin = 5;
-const int ledPin2 = 17;
+const int ledPin2 = 18;
 const int buttonPin = 4;
 int buttonState = 0;
 
