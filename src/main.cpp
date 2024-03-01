@@ -4,11 +4,12 @@
 #include <SPIFFS.h>
 #include <WebSocketsServer.h>
 
+// Define as portas Rx e Tx que serão usadas pelo Esp32 para se conectar ao Arduino
 #define RXp2 16
 #define TXp2 17
 
-String receivedData = "";
-String ReciveDataSerial = "";
+String receivedData = ""; // Dado recebido via WebSocket
+String ReciveDataSerial = ""; // Dado recebido via Serial pelo Arduino
 
 // Função para salvar os dados recebidos
 void saveReceivedData(const char* data, size_t length) {
@@ -56,7 +57,7 @@ AsyncWebServer server(80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
 void setup() {
-  Serial2.begin(9600, SERIAL_8N1, RXp2, TXp2);
+  Serial2.begin(9600, SERIAL_8N1, RXp2, TXp2); // Inicia uma conexão via Serial com Tx e Rx ao Rx e Tx do Arduino na Serial 9600
   Serial.begin(115200);
   while (!Serial);
 
@@ -98,13 +99,13 @@ void setup() {
   });
 
   server.on("/machine/on", HTTP_GET, [](AsyncWebServerRequest *request) {
-    Serial2.println("on,"+String(receivedData));
+    Serial2.println("on,"+String(receivedData)); // Envia via Serial para o Arduino ligar o led e envia o dado da gravidade desejada
     request->send(SPIFFS, "/pages/machineOn.html", "text/html");
   });
 
   server.on("/machine/off", HTTP_GET, [](AsyncWebServerRequest *request) {
     digitalWrite(ledPin, HIGH);
-    Serial2.println("off");
+    Serial2.println("off"); // Envia via Serial para o Arduino desligar o led
     request->send(SPIFFS, "/pages/machineOff.html", "text/html");
   });
 
