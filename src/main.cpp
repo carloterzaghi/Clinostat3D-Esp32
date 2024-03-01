@@ -140,7 +140,8 @@ void setup() {
 void loop() {
 
   if (Serial2.available()) {
-      ReciveDataSerial = Serial2.readString();  // Recive data from Arduino -> buttonState, RandomNumber
+      // Código dando problema nessa linha por conta do readString, conflito com o receivedData
+      ReciveDataSerial = Serial2.readString();  // Recive data from Arduino -> buttonState, RandomNumber 
   }
 
   webSocket.loop();                                   // Update function for the webSockets 
