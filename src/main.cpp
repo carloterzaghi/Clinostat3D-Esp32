@@ -132,6 +132,10 @@ void setup() {
     request->send(SPIFFS, "/pages/sendWebSocketData.js", "text/javascript"); 
   });
 
+ server.on("/csv/teste.csv", HTTP_GET, [](AsyncWebServerRequest *request){   // Teste CSV
+    request->send(SPIFFS, "/csv/teste.csv", "text/csv");  
+  });
+    
   // Coemça o webSocket para poder ter o envio de dados
   webSocket.begin();                          
   webSocket.onEvent(webSocketEvent);
