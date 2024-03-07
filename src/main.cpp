@@ -19,6 +19,7 @@ void saveReceivedData(const char* data, size_t length) {
     for (size_t i = 0; i < length; i++) {
         receivedData += data[i];
     }
+    Serial.println("Recebendo dado: "+receivedData);
 }
 
 // Função informa sobre a coneção do Client no Serial
@@ -35,8 +36,8 @@ void webSocketEvent(byte num, WStype_t type, uint8_t * payload, size_t length) {
       saveReceivedData((const char*)payload, length);
       
       // Imprime os dados recebidos
-      Serial.print(receivedData);
-      Serial.println("");
+      Serial.print("Payload Recebido: ");
+      Serial.println((const char*)payload);
       break;
   }
 }
@@ -135,27 +136,19 @@ void setup() {
   webSocket.begin();                          
   webSocket.onEvent(webSocketEvent);
 
+
 }
 
 void loop() {
-
-  if (Serial2.available()) {
-      // Código dando problema nessa linha por conta do readString, conflito com o receivedData
-      ReciveDataSerial = Serial2.readString();  // Recive data from Arduino -> buttonState, RandomNumber 
-  }
-
   webSocket.loop();                                   // Update function for the webSockets 
-  
-  //  buttonState = digitalRead(buttonPin);
 
-  unsigned long now = millis();                       // read out the current "time" ("millis()" gives the time in ms since the Arduino started)
-  if ((unsigned long)(now - previousMillis) >= interval) { // check if "interval" ms has passed since last time the clients were updated
-
-    String str = ReciveDataSerial+","+String(receivedData);          // Send data to server -> buttonState, RandomNumber, Gravidade (Informada no Site)
-    int str_len = str.length() + 1;                   
-    char char_array[str_len];
-    str.toCharArray(char_array, str_len);             // convert to char array
-    webSocket.broadcastTXT(char_array);               // send char_array to clients
-    previousMillis = now;                             // reset previousMillis
+  // Se recebido dados do Arduino, leia e envie para o websocket
+  if (Serial2.available() > 0) {
+      ReciveDataSerial = Serial2.readStringUntil('\n');  // Recive data from Arduino -> buttonState, RandomNumber 
+      String str = ReciveDataSerial+","+String(receivedData);          // Send data to server -> buttonState, RandomNumber, Gravidade (Informada no Site)
+      int str_len = str.length() + 1;                   
+      char char_array[str_len];
+      str.toCharArray(char_array, str_len);             // convert to char array
+      webSocket.broadcastTXT(char_array);               // send char_array to clients
   }
 }
