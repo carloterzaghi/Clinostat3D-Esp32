@@ -96,6 +96,7 @@ void setup() {
 
   // Rotas do servidor web
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
+    digitalWrite(ledPin, LOW);
     request->send(SPIFFS, "/index.html", "text/html");
   });
 
