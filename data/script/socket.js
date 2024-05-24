@@ -14,8 +14,8 @@ function processCommand(event) {
   const dadosSeparados = event.data.split(',');
 
   // Obter os valores individuais
-  const buttonState = dadosSeparados[0];
-  const randomValue = dadosSeparados[1];
+  const buttonState = dadosSeparados[1];
+  const randomValue = dadosSeparados[2];
 
   // Atualizar os elementos da página
   document.getElementById('buttonState').innerHTML = buttonState;

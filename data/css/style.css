@@ -31,6 +31,8 @@ body {
       cursor: pointer;
       transition: 0.3s;
    }
+
+
   .startButton:hover {
       background-color: #388E3C;
    }
@@ -49,6 +51,21 @@ body {
 .stopButton:hover {
     background-color: #b52d2d;
  }
+.sdButton{
+  background-color: #007bff;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sdButton:hover{
+  background-color: #2f6bac;
+}
 
   p {
     text-align: center;
@@ -84,8 +101,78 @@ body {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    width: 45vh;
   }
   
   body {
     background-color: #3253a1;
   }
+
+
+
+  /* Style of the SD Files */
+  #file-list {
+    margin-top: 20px;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.file-item button {
+    margin-left: 10px;
+}
+
+
+
+table {
+  width: 50%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+table, th, td {
+  border: 1px solid #ddd;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+#dados-container{
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loader-dados{
+  animation: spin 2s linear infinite;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3253a1;
+  border-bottom: 16px solid #3253a1;
+  width: 120px;
+  height: 120px;
+  margin-top : 10px;
+  margin-bottom: 30px;
+}
