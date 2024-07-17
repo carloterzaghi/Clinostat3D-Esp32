@@ -16,7 +16,80 @@
     <h2 class="title">Data being received</h2>
     <p>Status: <span id='buttonState'>-</span></p>
     <p>Random Number: <span id='rand'>-</span></p>
+    <h2 class="title" id="counterTitle"></h2>
+    <p id="countdown"></p>
   </div>
   <script src="/pages/sendWebSocketData.js"></script>
+  <script>
+    setTimeout(function() {
+      if (document.getElementById('counterTitle').textContent == "Countdown Timer") {
+        function parseTimeString(timeString) {
+          const [hours, minutes, seconds] = timeString.split(':').map(Number);
+          return hours * 3600 + minutes * 60 + seconds;
+        }
+
+        function formatTime(seconds) {
+          let hours = Math.floor(seconds / 3600);
+          let minutes = Math.floor((seconds % 3600) / 60);
+          let secondsRemaining = seconds % 60;
+
+          hours = String(hours).padStart(2, '0');
+          minutes = String(minutes).padStart(2, '0');
+          secondsRemaining = String(secondsRemaining).padStart(2, '0');
+
+          return `${hours}:${minutes}:${secondsRemaining}`;
+        }
+
+        const countdownElement = document.getElementById('countdown');
+        let countdownTime;
+        const initialTimeString = countdownElement.textContent;
+        const initialCountdownTime = parseTimeString(initialTimeString);
+
+        // Check if there is a saved countdown time in localStorage
+        if (localStorage.getItem('countdownTime')) {
+          const savedCountdownTime = parseInt(localStorage.getItem('countdownTime'), 10);
+          const savedInitialTimeString = localStorage.getItem('initialTimeString');
+
+          if (savedInitialTimeString === initialTimeString) {
+            countdownTime = savedCountdownTime;
+          } else {
+            countdownTime = initialCountdownTime;
+            localStorage.setItem('initialTimeString', initialTimeString);
+            localStorage.setItem('countdownTime', initialCountdownTime);
+          }
+        } else {
+          countdownTime = initialCountdownTime;
+          localStorage.setItem('initialTimeString', initialTimeString);
+          localStorage.setItem('countdownTime', initialCountdownTime);
+        }
+
+        function updateCountdown() {
+          countdownElement.textContent = formatTime(countdownTime);
+
+          countdownTime--;
+
+          // Stop the countdown when it reaches zero
+          if (countdownTime < 0) {
+            clearInterval(countdownInterval);
+            countdownElement.textContent = "00:00:00";
+            localStorage.removeItem('countdownTime');
+            localStorage.removeItem('initialTimeString');
+            location.href = '/machine/off'; // Redireciona quando o timer chegar a 00:00:00
+          } else {
+            // Save the current countdown time to localStorage
+            localStorage.setItem('countdownTime', countdownTime);
+          }
+        }
+
+        // Update the countdown every second
+        const countdownInterval = setInterval(updateCountdown, 1000);
+      }
+    }, 1000);
+  </script>
+  <style>
+    p {
+      text-align: center;
+    }
+  </style>
 </body>
 </html>
