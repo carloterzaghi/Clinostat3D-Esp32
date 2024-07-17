@@ -1,7 +1,7 @@
 # Clinostat3D-Esp32
 This code was produced using PlatformIO and need to be used in a esp32 board.
-All the code produced in C++ is found in the src folder, while in the data folder you can find other content that was added through SPIFFS.h to create the web pages.
-
+All the code produced in C++ is found in the src folder, while in the data folder you can find other content that was added through SPIFFS.h to create the web pages.</br>
+If you want the see the Arduino part click here: [Clinostat3D-Arduino](https://github.com/carloterzaghi/Clinostat3D-Arduino)
 
 # How to install
 1. First you need to have PlatformIO install in your IDE, I recommend using VSCode in this case
