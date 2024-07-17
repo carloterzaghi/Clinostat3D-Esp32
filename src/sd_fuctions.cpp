@@ -62,6 +62,21 @@ void readFile(fs::FS &fs, const char * path){
   file.close();
 }
 
+int existFile(fs::FS &fs, const char * path){
+  Serial.printf("Reading file: %s\n", path);
+
+  File file = fs.open(path);
+  if(!file){
+    Serial.println("File not found");
+    return 0;
+  }
+
+  Serial.println("File found");
+  return 1;
+  
+  file.close();
+}
+
 void writeFile(fs::FS &fs, const char * path, const char * message){
   Serial.printf("Writing file: %s\n", path);
 
