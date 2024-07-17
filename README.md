@@ -14,4 +14,4 @@ If you want the see the Arduino part click here: [Clinostat3D-Arduino](https://g
 8. In your internet connect to "192.168.4.1"
 
 # How it should be assembled
-![Alt text](https://github.com/carloterzaghi/Clinostat3D-Esp32/blob/main/image.png)
+![Alt text](https://github.com/carloterzaghi/Clinostat3D-Esp32/blob/main/image2.png)
