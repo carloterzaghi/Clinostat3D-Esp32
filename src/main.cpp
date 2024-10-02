@@ -181,7 +181,7 @@ void setup() {
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request) {
     digitalWrite(ledPin, LOW);
     digitalWrite(Enable, HIGH);   // Enable the RS485 module
-    Serial2.println("off"); // Envia via Serial para o Arduino desligar o led
+    Serial2.println("ESP-Master,off"); // Envia via Serial para o Arduino desligar o led
     Serial2.flush();   // Wait to send data
     digitalWrite(Enable, LOW);   // Disable the RS485 module
     receivedData = "";  // Set Gravity to None 
@@ -196,7 +196,7 @@ void setup() {
     Serial.println(ReciveTimer);
     fileNameTXT  = "/" + ReciveParamater + ".txt"; // Real File Name
     digitalWrite(Enable, HIGH);  // Enable the RS485 module
-    Serial2.println("on,"+String(receivedData)); // Envia via Serial para o Arduino ligar o led e envia o dado da gravidade desejada
+    Serial2.println("ESP-Master,on,"+String(receivedData)); // Envia via Serial para o Arduino ligar o led e envia o dado da gravidade desejada
     Serial2.flush();  // Wait to send data
     digitalWrite(Enable, LOW);   // Disable the RS485 module
     if (existFile(SD, (char*) fileNameTXT.c_str()) == 0) writeFile(SD,(char*) fileNameTXT.c_str(), "buttonState, RandomNumber, Gravidade, Dia, Horário(BR)\n"); // Create de SD File if not exist
@@ -208,7 +208,7 @@ void setup() {
   server.on("/machine/off", HTTP_GET, [](AsyncWebServerRequest *request) {
     digitalWrite(ledPin, HIGH);
     digitalWrite(Enable, HIGH);   // Enable the RS485 module
-    Serial2.println("off"); // Envia via Serial para o Arduino desligar o led
+    Serial2.println("ESP-Master,off"); // Envia via Serial para o Arduino desligar o led
     Serial2.flush();   // Wait to send data
     digitalWrite(Enable, LOW);   // Disable the RS485 module
     collectDataSD = 0;     // Info that dont need to collect data
@@ -298,7 +298,7 @@ void loop() {
     }
   }
   else if (sdPage == 1){
-    String SD_Data = listDir(SD, "/", 0);  // <= Preciso pegar os dados ainda e transformar eles em um char* e mandar para o Web
+    String SD_Data = listDir(SD, "/", 0);  // Dados do cartão SD
     //Serial.println(SD_Data);
     Serial.println(receivedData);
     if (receivedData.startsWith("Baixar:")) { // Verifica se a string começa com "Baixar:"
