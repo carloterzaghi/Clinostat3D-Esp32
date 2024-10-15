@@ -44,7 +44,7 @@ function processCommand(event) {
   const sdExist = dadosSeparados[0];
   const buttonState = dadosSeparados[1];
   const randomValue = dadosSeparados[2];
-  const gravity = dadosSeparados[3];
+  const gravity =  dadosSeparados[3];
   const timerValue = dadosSeparados[4];
 
   // Edita o Start se não tiver conectado o cartão SD no ESP32

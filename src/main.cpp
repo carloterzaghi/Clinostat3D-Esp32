@@ -62,7 +62,7 @@ String CSVDayTime(const RtcDateTime& dt) {
 }
 
 // Rede e Senha do ESP32
-const char* ssid     = "Teste-NSEE";  // Nome da Rede
+const char* ssid     = "Clinostat-NSEE";  // Nome da Rede
 const char* password = "12345678";  // Senha Precisa ter no mínimo 8 caracteres
 
 // Init de intervalo de envio de dados do esp32 ao pagina web server
