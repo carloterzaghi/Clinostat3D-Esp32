@@ -17,4 +17,4 @@ If you want the see the Arduino part click here: [Clinostat3D-Arduino](https://g
 ![Alt text](https://github.com/carloterzaghi/Clinostat3D-Esp32/blob/main/Esp32_Main_PCB.png)
 
 # PCB Exemple
-![Alt text](https://github.com/carloterzaghi/Clinostat3D-Esp32/blob/main/PCB_Clinostat3D.png)
+![Alt text](https://github.com/carloterzaghi/Clinostat3D-Esp32/blob/main/NodeMCU-Esp32.png)
