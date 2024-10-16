@@ -1,7 +1,9 @@
 # Clinostat3D-Esp32
 This code was produced using PlatformIO and need to be used in a esp32 board.
 All the code produced in C++ is found in the src folder, while in the data folder you can find other content that was added through SPIFFS.h to create the web pages.</br>
-If you want the see the Arduino part click here: [Clinostat3D-Arduino](https://github.com/carloterzaghi/Clinostat3D-Arduino)
+If you want the see the <strong>Connection PCB</strong> part click here: [Clinostat3D-Connection-PCB](https://github.com/carloterzaghi/Clinostat3D-Connection-PCB)</br>
+If you want the see the <strong>Arduino Nano 1</strong> part click here: [Clinostat3D-Arduino-Nano1](https://github.com/carloterzaghi/Clinostat3D-Arduino)</br>
+If you want the see the <strong>Arduino Nano 2</strong> part click here: [Clinostat3D-Arduino-Nano2](https://github.com/carloterzaghi/Clinostat3D-Arduino2)</br>
 
 # How to install
 1. First you need to have PlatformIO install in your IDE, I recommend using VSCode in this case
